@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using C4Http.Interfaces;
 
 namespace C4Http.Default
 {
-    internal class ResponseReader
+    internal class ResponseReader : IResponseReader
     {
+        public Task<ResponseContext> ReadAsync(Stream tlsConnection, RequestContext context)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
