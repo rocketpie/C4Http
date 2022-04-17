@@ -7,6 +7,18 @@ namespace C4Http.Interfaces
     {
         const HttpStatusCode REDIRECT_CODES = HttpStatusCode.Moved | HttpStatusCode.Found | HttpStatusCode.TemporaryRedirect | HttpStatusCode.PermanentRedirect;
 
+        public ResponseContext(Exception exception)
+        {
+            Exception = exception;
+        }
+
+        public ResponseContext(HttpStatusCode statusCode, NameValueCollection responseHeaders, string body)
+        {
+            StatusCode = statusCode;
+            ResponseHeaders = responseHeaders;
+            Body = body;
+        }
+
         /// <summary>
         /// a response has been returned and was successfully read
         /// </summary>
@@ -45,17 +57,30 @@ namespace C4Http.Interfaces
             internal set { _responseHeaders = value; }
         }
 
-        StreamReader? _bodyStream;
-        public StreamReader BodyStream
+
+        string? _body;
+        public string Body
         {
             get
             {
                 if (Exception != null) { throw Exception; }
-                if (_bodyStream == null) { throw new InvalidOperationException("c9480ae why is there no exception?"); }
-                return _bodyStream;
+                if (_body == null) { throw new InvalidOperationException("c9480ae why is there no exception?"); }
+                return _body;
             }
-            internal set { _bodyStream = value; }
+            internal set { _body = value; }
         }
+
+        //StreamReader? _bodyStream;
+        //public StreamReader BodyStream
+        //{
+        //    get
+        //    {
+        //        if (Exception != null) { throw Exception; }
+        //        if (_bodyStream == null) { throw new InvalidOperationException("c9480ae why is there no exception?"); }
+        //        return _bodyStream;
+        //    }
+        //    internal set { _bodyStream = value; }
+        //}
 
     }
 }
